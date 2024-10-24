@@ -225,33 +225,35 @@
                             </form>
                         </div>
                     </div>
+                    <!--Recommended-->
                     <div class="col-lg-4 col-md-4">
                         <div class="anime__details__sidebar">
                             <div class="section-title">
                                 <h5>you might like...</h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-1.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Boruto: Naruto next generations</a></h5>
+                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-1.jpg" id="bg0">
+                                <div class="ep" id="subTotal0">18 / ?</div>
+                                <div class="view" id="dub0"><i class="fa fa-eye"></i> </div>
+                                <h5><a href="#" id="name1">Boruto: Naruto next generations</a></h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-2.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
+                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-2.jpg" id="bg1">
+                                <div class="ep" id="subTotal1">18 / ?</div>
+                                <div class="view"><i class="fa fa-eye" id="dub1"></i> </div>
+                                <h5><a href="#" id="name2">The Seven Deadly Sins: Wrath of the Gods</a></h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-3.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Sword art online alicization war of underworld</a></h5>
+                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-3.jpg" id="bg2">
+                                <div class="ep" id="subTotal2">18 / ?</div>
+                                <div class="view" id="dub2"><i class="fa fa-eye"></i> </div>
+                                <h5><a href="#" id="name3">Sword art online alicization war of underworld</a></h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-4.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Fate/stay night: Heaven's Feel I. presage flower</a></h5>
+                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-4.jpg" id="bg3">
+                                <div class="ep" id="subTotal3">18 / ?</div>
+                                <div class="view" id="dub3"><i class="fa fa-eye"></i> </div>
+                                <h5><a href="#" id="name4">Fate/stay night: Heaven's Feel I. presage flower</a></h5>
                             </div>
                         </div>
                     </div>
+                      <!--End of Recommended-->
                 </div>
             </div>
         </section>
@@ -331,6 +333,92 @@
        }).then (results => {
         
         const resultsInfo = results.results.data;
+        const recommendedData0 = results.results.data.recommended_data[0];
+        const recommendedData1 = results.results.data.recommended_data[1];
+        const recommendedData2 = results.results.data.recommended_data[2];
+        const recommendedData3 = results.results.data.recommended_data[3];
+
+        const recommended_datas = document.querySelectorAll('.product__sidebar__view__item.set-bg h5 a');
+        console.log(recommended_datas)
+
+
+        if (recommendedData0.title){
+            document.getElementById('name1').innerHTML = recommendedData0.title;
+            document.getElementById('bg0').style.background = `url(${recommendedData0.poster})`;
+            document.getElementById('subTotal0').innerHTML = "Sub: " + recommendedData0.tvInfo.sub;
+
+            const currentId0 = recommendedData0.id
+            const urlPast = `https://anime-api-five-woad.vercel.app/api/info?id=${currentId0}`
+            document.getElementById('bg0').addEventListener('click', function() {
+                window.location.href = 'anime-details.html?url=' + encodeURIComponent(urlPast)
+            })
+
+            if (recommendedData0.tvInfo.dub){
+                document.getElementById('dub0').innerHTML = "Dub: " + recommendedData0.tvInfo.dub;
+            }else {
+                document.getElementById('dub0').innerHTML = "Dub: 0";
+            }
+            
+        }
+
+        if (recommendedData1.title){
+            document.getElementById('name2').innerHTML = recommendedData1.title
+            document.getElementById('bg1').style.background = `url(${recommendedData1.poster})`
+            document.getElementById('subTotal1').innerHTML = "Sub: " + recommendedData1.tvInfo.sub;
+            
+            const currentId1 = recommendedData1.id
+            const urlPast = `https://anime-api-five-woad.vercel.app/api/info?id=${currentId1}`
+            document.getElementById('bg1').addEventListener('click', function() {
+                window.location.href = 'anime-details.html?url=' + encodeURIComponent(urlPast)
+            })
+
+              if (recommendedData1.tvInfo.dub){
+                 document.getElementById('dub1').innerHTML = "Dub: " + recommendedData1.tvInfo.dub;
+              }else {
+                document.getElementById('dub1').innerHTML = "Dub: 0";
+              }
+              
+        }
+
+        if (recommendedData2.title){
+            document.getElementById('name3').innerHTML = recommendedData2.title
+            document.getElementById('bg2').style.background = `url(${recommendedData2.poster})`
+            document.getElementById('subTotal2').innerHTML = "Sub: " + recommendedData2.tvInfo.sub;
+
+            const currentId2 = recommendedData2.id
+            const urlPast = `https://anime-api-five-woad.vercel.app/api/info?id=${currentId2}`
+            document.getElementById('bg2').addEventListener('click', function() {
+                window.location.href = 'anime-details.html?url=' + encodeURIComponent(urlPast)
+            })
+
+              if (recommendedData2.tvInfo.dub){
+                document.getElementById('dub2').innerHTML = "Dub: " + recommendedData2.tvInfo.dub;
+              }else {
+                document.getElementById('dub2').innerHTML = "Dub: 0";
+              }         
+        }
+
+        if (recommendedData3.title){
+            document.getElementById('name4').innerHTML = recommendedData3.title
+            document.getElementById('bg3').style.background = `url(${recommendedData3.poster})`
+            document.getElementById('subTotal3').innerHTML = "Sub: " + recommendedData3.tvInfo.sub;
+
+            const currentId3 = recommendedData3.id
+            const urlPast = `https://anime-api-five-woad.vercel.app/api/info?id=${currentId3}`
+            document.getElementById('bg3').addEventListener('click', function() {
+                window.location.href = 'anime-details.html?url=' + encodeURIComponent(urlPast)
+            })
+
+              if (recommendedData3.tvInfo.dub){
+                document.getElementById('dub3').innerHTML = "Dub: " + recommendedData3.tvInfo.dub;
+              }else {
+                document.getElementById('dub3').innerHTML = "Dub: 0";
+              }
+                   
+        }
+
+
+
         if (resultsInfo.title){
            document.getElementById('animeTitleOne').innerHTML = resultsInfo.title;
            document.getElementById('japanese-name').innerHTML = resultsInfo.japanese_title;

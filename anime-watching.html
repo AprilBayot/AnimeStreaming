@@ -103,6 +103,7 @@
                         </video>
                         
                         
+                        
                     </div>
                     <div class="anime__details__episodes">
                         <div class="section-title">
@@ -291,7 +292,9 @@
                     return res.json()
                 }).then (streamData => {
                     const streamVideoFile = streamData.results.streamingLink[0].link.file;
-                   
+                    const subTitle = streamData.results.streamingLink[0].tracks[0].file;
+                    const subTitleUrl = `https://worker-curly-feather-750f.jhonrickcieloe.workers.dev/?u=${subTitle}`;
+                    console.log(subTitle)
                     const videoPlayer = document.getElementById('player');
 
                     while (videoPlayer.firstChild){
@@ -313,6 +316,14 @@
                         videoPlayer.play();
                     });
                     }
+                    /*
+                    const trackElement = document.createElement('track');
+                    trackElement.kind = 'captions';
+                    trackElement.label = 'English Subtitles'; // You can customize the label
+                    trackElement.srclang = 'en'; // Subtitle language
+                    trackElement.src = subTitleUrl; // Subtitle file path fetched from streamData
+                    trackElement.default = true; // Set default if needed
+                    videoPlayer.appendChild(trackElement);*/
                 })
             }
 
