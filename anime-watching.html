@@ -97,14 +97,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="anime__video__player">
-                        <video id="player" playsinline controls data-poster="./videos/anime-watch.jpg">
-                            <track kind="captions" label="English Subtitles" src="captions_en.vtt" srclang="en" default />
-                        </video>
-                        
-                        
-                        
-                    </div>
                     <div class="anime__details__episodes">
                         <div class="section-title">
                             <h5>List Episodes</h5>
@@ -281,51 +273,14 @@
 
             episodeElement.addEventListener('click', function() {
                const streamId = episode.id;
+               const episodeID = episode.title;
                const streamUrl = `https://anime-api-five-woad.vercel.app/api/stream?id=${streamId}`;
-               updateStreamContent(streamUrl)
+               const episodeUlr = `https://anime-api-five-woad.vercel.app/api/episodes/${episodeID}`
+               const encodedStreamUrl = encodeURIComponent(streamUrl);
+               const encodedEpisodeUrl = encodeURIComponent(episodeUlr);
+               window.location.href = `anime-watch.html?streamUrl=${encodedStreamUrl}&episodeUrl=${encodedEpisodeUrl}`;
+
             })
-
-            function updateStreamContent(streamUrl) {
-                fetch (streamUrl, {
-                    method: 'GET'
-                }).then (res => {
-                    return res.json()
-                }).then (streamData => {
-                    const streamVideoFile = streamData.results.streamingLink[0].link.file;
-                    const subTitle = streamData.results.streamingLink[0].tracks[0].file;
-                    const subTitleUrl = `https://worker-curly-feather-750f.jhonrickcieloe.workers.dev/?u=${subTitle}`;
-                    console.log(subTitle)
-                    const videoPlayer = document.getElementById('player');
-
-                    while (videoPlayer.firstChild){
-                        videoPlayer.removeChild(videoPlayer.firstChild)
-                    }
-                    
-                    if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-                        const sourceElement = document.createElement('source');
-                        sourceElement.src = streamVideoFile;
-                        sourceElement.type = 'application/x-mpegURL';
-                        videoPlayer.appendChild(sourceElement);
-                        videoPlayer.load();
-                        videoPlayer.play();
-                    }else if (Hls.isSupported()){
-                        const hls = new Hls();
-                        hls.loadSource(streamVideoFile);
-                        hls.attachMedia(videoPlayer);
-                        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                        videoPlayer.play();
-                    });
-                    }
-                    /*
-                    const trackElement = document.createElement('track');
-                    trackElement.kind = 'captions';
-                    trackElement.label = 'English Subtitles'; // You can customize the label
-                    trackElement.srclang = 'en'; // Subtitle language
-                    trackElement.src = subTitleUrl; // Subtitle file path fetched from streamData
-                    trackElement.default = true; // Set default if needed
-                    videoPlayer.appendChild(trackElement);*/
-                })
-            }
 
             if (listEpisodes.length > 0) {
                 const elementToUpdate = listEpisodes.shift(); 
