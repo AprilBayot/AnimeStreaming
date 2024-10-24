@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
 </head>
 
 <body>
@@ -659,6 +659,17 @@
     const animeTopTenUrl = `https://anime-api-five-woad.vercel.app/api/top-ten`;
     const popularApiUrl = `https://anime-api-five-woad.vercel.app/api/`; 
     const heroUrl = `https://anime-api-five-woad.vercel.app/api/most-popular?page=2`;
+    const searchApi = `  https://anime-api-five-woad.vercel.app/api/search?keyword=`;
+    const searchPrompt = document.getElementById('search-input');
+
+    searchPrompt.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter'){
+            event.preventDefault();
+            const search = searchPrompt.value;
+            const finalUrl = `${searchApi}${search}`;
+            window.location.href = `search-result.html?url=` + encodeURIComponent(finalUrl);
+        }
+    })
 
     fetch(heroUrl, {
         method: 'GET'
