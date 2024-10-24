@@ -125,6 +125,7 @@ ol {
 	padding-left: 20px;
 	position: relative;
 	font-family: "Oswald", sans-serif;
+	margin-top: -10%
 }
 
 .section-title h4:after,
@@ -2196,9 +2197,6 @@ ol {
 		border-radius: 0;
 		background: transparent;
 		color: #111111;
-	}
-	.product__sidebar {
-		padding-top: 50px;
 	}
 	.footer__logo {
 		text-align: center;
